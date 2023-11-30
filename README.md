@@ -10,4 +10,4 @@ The set of values was chosen based on [OBS-Studio](https://github.com/obsproject
 
 Thanks to @RileyGuy and @Earthmark for their assistance in writing this mod!
 
-### Built using the [ResoniteModTemplate](https://github.com/RileyGuy/ResoniteModTemplate) by @RileyGuy
+#### *Built using the [ResoniteModTemplate](https://github.com/RileyGuy/ResoniteModTemplate) by @RileyGuy*
