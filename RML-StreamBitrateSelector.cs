@@ -31,6 +31,11 @@ public class StreamBitrateSelector : ResoniteMod
         [HarmonyPrefix]
         public static bool Pressed_Patch(AudioStreamSpawner __instance, Sync<string> ____bitrateString, IButton button, ButtonEventData eventData)
         {
+            Msg("----------Opening StreamBitrateSelector Modal----------");
+            // We create a ValueMultiplexer with a list of common audio stream bitrates.
+            // The list is derived from OBS-Studio's list of audio stream bitrate options.
+            // We'll then use the slider to change the index of the ValueMultiplexer.
+            // The selected index will determine which value "BitrateKbps" is being driven to.
             ValueMultiplexer<float> bitrateValueMultiplexer = __instance.Slot.AttachComponent<ValueMultiplexer<float>>();
             bitrateValueMultiplexer.Values.Add(32f);
             bitrateValueMultiplexer.Values.Add(64f);
@@ -43,6 +48,11 @@ public class StreamBitrateSelector : ResoniteMod
             bitrateValueMultiplexer.Values.Add(288f);
             bitrateValueMultiplexer.Values.Add(320f);
             bitrateValueMultiplexer.Target.Target = __instance.BitrateKbps;
+
+            // ConvertableIntDriver will take our slider's float value and turn it into an int to drive our ValueMultiplexer's Index.
+            ConvertibleIntDriver<float> sliderConvertibleIntDriver = __instance.Slot.AttachComponent<ConvertibleIntDriver<float>>();
+            //ConvertibleFloatDriver<int> indexConverttibleFloatDriver = __instance.Slot.AttachComponent<ConvertibleFloatDriver<int>>();
+            //ValueField<float> sliderDriveWriteBack = __instance.Slot.AttachComponent<ValueField<float>>();
 
             UIBuilder uIBuilder = new UIBuilder(__instance.Slot.OpenModalOverlay(new float2(0.8f, 0.9f), "Tools.StreamAudio.Dialog.Title".AsLocaleKey()));
             RadiantUI_Constants.SetupDefaultStyle(uIBuilder);
@@ -61,10 +71,18 @@ public class StreamBitrateSelector : ResoniteMod
             LocaleString text = "Tools.StreamAudio.Bitrate".AsLocaleKey("bitrate", ____bitrateString);
             uIBuilder.Text(in text).RectTransform.AddFixedPadding(8f);
             uIBuilder.NestInto(right2);
-            Slider<int> slider = uIBuilder.Slider<int>(64f, bitrateValueMultiplexer.Index, 0, 10);
+
+            // Setup a slider with the "Integer" field set to true.
+            // Ensures only whole integer values come out of the slider.
+            // We can't use Slider<int> as clamping prevents us from sliding to the maximum value.
+            Slider<float> slider = uIBuilder.Slider(64f, 0f, 0, 9, true);
+
+            // Assign our Source and Target for ConvertableIntDriver to drive ValueMultiplexer's Index
+            sliderConvertibleIntDriver.Source.Target = slider.Value;
+            sliderConvertibleIntDriver.Target.Target = bitrateValueMultiplexer.Index;
+
             slider.RectTransform.AddFixedPadding(8f);
-            slider.Value.DriveFrom(bitrateValueMultiplexer.Index, writeBack: true);
-            bitrateValueMultiplexer.Index.Value = 3;
+            //slider.Value.DriveFrom(sliderDriveWriteBack.Value, writeBack: true);
             uIBuilder.NestOut();
             uIBuilder.ForceNext = right;
             uIBuilder.Button(OfficialAssets.Graphics.Icons.Voice.Broadcast, "Tools.StreamAudio.Start".AsLocaleKey(), __instance.OnStartStreaming).RectTransform.AddFixedPadding(8f);
