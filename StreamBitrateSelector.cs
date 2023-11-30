@@ -13,7 +13,7 @@ public class StreamBitrateSelector : ResoniteMod
     public override string Name => "StreamBitrateSelector";
     public override string Author => "PointerOffset";
     public override string Version => "1.0.0";
-    public override string Link => "resonite.com";
+    public override string Link => "https://github.com/PointerOffset/RML-StreamBitrateSelector";
     public static ModConfiguration? Config;
 
     public override void OnEngineInit()
@@ -29,6 +29,8 @@ public class StreamBitrateSelector : ResoniteMod
     {
         [HarmonyPatch("Pressed")]
         [HarmonyPrefix]
+        // We'll set this patched method to return a bool and ensure it returns `false`.
+        // Doing so will prevent the rest of the original method from running. Effectively replacing the entire original method.
         public static bool Pressed_Patch(AudioStreamSpawner __instance, Sync<string> ____bitrateString, IButton button, ButtonEventData eventData)
         {
             Msg("----------Opening StreamBitrateSelector Modal----------");
@@ -53,7 +55,7 @@ public class StreamBitrateSelector : ResoniteMod
             // Setup a slider with the "Integer" field set to true.
             // Ensures only whole integer values come out of the slider.
             // We can't use Slider<int> as clamping prevents us from sliding to the maximum value.
-            Slider<float> slider = uIBuilder.Slider(64f, 0f, 0, 9, true);
+            Slider<float> slider = uIBuilder.Slider(64f, 3f, 0, 9, true);
             
             // We create a ValueMultiplexer with a list of common audio stream bitrates.
             // The list is derived from OBS-Studio's list of audio stream bitrate options.
