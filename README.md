@@ -9,3 +9,5 @@ This mod will replace the modal that's normally created for setting up a `UserAu
 The set of values was chosen based on [OBS-Studio](https://github.com/obsproject/obs-studio)'s set of audio stream bitrate values. The available bitrate settings are as follows (in Kbps): `32, 64, 96, 128, 160, 192, 224, 256, 288, 320`
 
 Thanks to @RileyGuy and @Earthmark for their assistance in writing this mod!
+
+### Built using the [ResoniteModTemplate](https://github.com/RileyGuy/ResoniteModTemplate) by @RileyGuy
