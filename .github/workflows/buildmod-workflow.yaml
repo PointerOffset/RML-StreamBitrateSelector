@@ -9,6 +9,7 @@ jobs:
     env:
       STEAM_USERNAME: ${{ secrets.STEAMUSER }}
       STEAM_PASSWORD: ${{ secrets.STEAMPASS }}
+      RESONITE_DIR: ~/.local/share/Steam/steamapps/common/Resonite
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
@@ -27,6 +28,20 @@ jobs:
     - name: Install Resonite
       run: steamcmd +login $STEAM_USERNAME $STEAM_PASSWORD +app_license_request 2519830 +app_update 2519830 validate +quit
     
+    - name: Download Latest RML
+      uses: robinraju/release-downloader@v1.8
+      with:
+        repository: "resonite-modding-group/ResoniteModLoader"
+        latest: true
+        fileName: "*.dll"
+        out-file-path: "rmldl"
+
+    - name: Setup RML Directories
+      run: mkdir $RESONITE_DIR/rml_libs && $RESONITE_DIR/mkdir rml_mods
+
+    - name: Copy RML Files
+      run: cp ./rmldl/ResoniteModLoader.dll $RESONITEDIR/Libraries/ResoniteModLoader.dll && cp ./rmldl/0Harmony.dll $RESONITEDIR/rml_libs/0Harmony.dll
+
     - name: Build
       run: dotnet build --configuration Release
     
