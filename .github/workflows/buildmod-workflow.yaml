@@ -17,8 +17,10 @@ jobs:
     - name: Set Resonite Include Paths
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: "<PropertyGroup Condition="'\$\(.+?\)'.+?''">(.|\n)*?<\/PropertyGroup>"
-        replace: "<PropertyGroup><ResonitePath>$RESONITE_DIR</ResonitePath></PropertyGroup>"
+        find: >-
+          <PropertyGroup Condition="'\$\(.+?\)'.+?''">(.|\n)*?<\/PropertyGroup>
+        replace: >-
+          <PropertyGroup><ResonitePath>$RESONITE_DIR</ResonitePath></PropertyGroup>
         include: "*.csproject"
 
     - name: Setup dotnet
