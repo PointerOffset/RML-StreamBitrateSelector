@@ -49,7 +49,7 @@ jobs:
       run: mkdir $RESONITE_DIR/rml_libs && mkdir $RESONITE_DIR/rml_mods
 
     - name: Copy RML Files
-      run: cp ./rmldl/ResoniteModLoader.dll $RESONITEDIR/Libraries/ResoniteModLoader.dll && cp ./rmldl/0Harmony.dll $RESONITEDIR/rml_libs/0Harmony.dll
+      run: cp ./rmldl/ResoniteModLoader.dll $RESONITE_DIR/Libraries/ResoniteModLoader.dll && cp ./rmldl/0Harmony.dll $RESONITE_DIR/rml_libs/0Harmony.dll
 
     - name: Build
       run: dotnet build --configuration Release
