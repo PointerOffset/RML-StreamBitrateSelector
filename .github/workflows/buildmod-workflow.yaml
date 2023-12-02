@@ -37,9 +37,6 @@ jobs:
     - name: Install Resonite
       run: mkdir $RESONITE_DIR && steamcmd +force_install_dir $RESONITE_DIR +login $STEAM_USERNAME $STEAM_PASSWORD +app_license_request 2519830 +app_update 2519830 validate +quit
     
-    - name: Check Resonite Install
-      run: ls -al $RESONITE_DIR
-
     - name: Download Latest RML
       uses: robinraju/release-downloader@v1.8
       with:
@@ -49,10 +46,10 @@ jobs:
         out-file-path: "rmldl"
 
     - name: Setup RML Directories
-      run: mkdir $RESONITE_DIR/rml_libs && mkdir $RESONITE_DIR/rml_mods
+      run: mkdir $RESONITE_DIR/rml_libs && mkdir $RESONITE_DIR/rml_mods && ls -al $RESONITE_DIR
 
     - name: Copy RML Files
-      run: cp ./rmldl/ResoniteModLoader.dll $RESONITE_DIR/Libraries/ResoniteModLoader.dll && cp ./rmldl/0Harmony.dll $RESONITE_DIR/rml_libs/0Harmony.dll
+      run: cp ./rmldl/0Harmony.dll $RESONITE_DIR/rml_libs/0Harmony.dll && cp ./rmldl/ResoniteModLoader.dll $RESONITE_DIR/Libraries/ResoniteModLoader.dll
 
     - name: Build
       run: dotnet build --configuration Release
