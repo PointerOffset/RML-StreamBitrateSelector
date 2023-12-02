@@ -35,7 +35,7 @@ jobs:
       uses: CyberAndrii/setup-steamcmd@v1
 
     - name: Install Resonite
-      run: steamcmd +force_install_dir $RESONITE_DIR +login $STEAM_USERNAME $STEAM_PASSWORD +app_license_request 2519830 +app_update 2519830 validate +quit
+      run: mkdir $RESONITE_DIR && steamcmd +force_install_dir $RESONITE_DIR +login $STEAM_USERNAME $STEAM_PASSWORD +app_license_request 2519830 +app_update 2519830 validate +quit
     
     - name: Download Latest RML
       uses: robinraju/release-downloader@v1.8
