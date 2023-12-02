@@ -21,7 +21,7 @@ jobs:
           <PropertyGroup Condition="'\$\(.+?\)'.+?''">(.|\n)*?<\/PropertyGroup>
         replace: >-
           <PropertyGroup><ResonitePath>$RESONITE_DIR</ResonitePath></PropertyGroup>
-        include: "*.csproject"
+        include: "*.csproj"
 
     - name: Setup dotnet
       uses: actions/setup-dotnet@v3
