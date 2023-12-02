@@ -25,7 +25,7 @@ jobs:
       uses: CyberAndrii/setup-steamcmd@v1
 
     - name: Install Resonite
-      run: steamcmd +login anonymous +app_license_request 2519830 +app_update 2519830 validate +quit
+      run: steamcmd +login $STEAM_USERNAME $STEAM_PASSWORD +app_license_request 2519830 +app_update 2519830 validate +quit
     
     - name: Build
       run: dotnet build --configuration Release
