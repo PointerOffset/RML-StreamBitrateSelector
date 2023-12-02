@@ -46,7 +46,7 @@ jobs:
         out-file-path: "rmldl"
 
     - name: Setup RML Directories
-      run: mkdir $RESONITE_DIR/rml_libs && $RESONITE_DIR/mkdir rml_mods
+      run: mkdir $RESONITE_DIR/rml_libs && mkdir $RESONITE_DIR/rml_mods
 
     - name: Copy RML Files
       run: cp ./rmldl/ResoniteModLoader.dll $RESONITEDIR/Libraries/ResoniteModLoader.dll && cp ./rmldl/0Harmony.dll $RESONITEDIR/rml_libs/0Harmony.dll
