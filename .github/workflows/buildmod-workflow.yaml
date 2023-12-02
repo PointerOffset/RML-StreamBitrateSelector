@@ -54,5 +54,8 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
     
-    - name: Print Output
-      run: ls -al ./bin/Release/net472
+    - name: Upload Mod Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: StreamBitrateSelector.dll
+        path: ./bin/Release/net472/StreamBitrateSelector.dll
