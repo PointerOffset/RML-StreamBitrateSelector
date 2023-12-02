@@ -9,10 +9,17 @@ jobs:
     env:
       STEAM_USERNAME: ${{ secrets.STEAMUSER }}
       STEAM_PASSWORD: ${{ secrets.STEAMPASS }}
-      RESONITE_DIR: ~/.local/share/Steam/steamapps/common/Resonite
+      RESONITE_DIR: /Resonite
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
+
+    - name: Set Resonite Include Paths
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "<PropertyGroup Condition="'\$\(.+?\)'.+?''">(.|\n)*?<\/PropertyGroup>"
+        replace: "<PropertyGroup><ResonitePath>$RESONITE_DIR</ResonitePath></PropertyGroup>"
+        include: "*.csproject"
 
     - name: Setup dotnet
       uses: actions/setup-dotnet@v3
