@@ -9,7 +9,7 @@ jobs:
     env:
       STEAM_USERNAME: ${{ secrets.STEAMUSER }}
       STEAM_PASSWORD: ${{ secrets.STEAMPASS }}
-      RESONITE_DIR: $GITHUB_WORKSPACE/ResoniteInstall
+      RESONITE_DIR: ./ResoniteInstall
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
