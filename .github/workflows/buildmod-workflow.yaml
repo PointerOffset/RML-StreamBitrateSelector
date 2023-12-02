@@ -1,0 +1,34 @@
+name: RML Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_job:
+    runs-on: ubuntu-latest
+    env:
+      STEAM_USERNAME: ${{ secrets.STEAMUSER }}
+      STEAM_PASSWORD: ${{ secrets.STEAMPASS }}
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Install Mono
+      run: sudo apt-get install -y mono-devel
+
+    - name: Setup steamcmd
+      uses: CyberAndrii/setup-steamcmd@v1
+
+    - name: Install Resonite
+      run: steamcmd +login anonymous +app_license_request 2519830 +app_update 2519830 validate +quit
+    
+    - name: Build
+      run: dotnet build --configuration Release
+    
+    - name: Print Output
+      run: ls -al ./bin/Release/net472
