@@ -83,4 +83,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: StreamBitrateSelector.dll
-          tag_name: v${{ steps.test.get_version.version }}
+          tag_name: v${{ steps.get_version.version }}
