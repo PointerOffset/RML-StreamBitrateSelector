@@ -73,7 +73,14 @@ jobs:
         with:
           name: StreamBitrateSelector.dll
 
+      - name: Get Version Number
+        id: get_version
+        uses: KageKirin/get-csproj-version@v1
+        with:
+          file: ${{ github.workspace }}/StreamBitrateSelector.csproj
+
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           files: StreamBitrateSelector.dll
+          tag_name: v${{ steps.test.get_version.version }}
