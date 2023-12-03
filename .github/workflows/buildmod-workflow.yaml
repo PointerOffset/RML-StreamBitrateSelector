@@ -73,7 +73,7 @@ jobs:
         id: get_version
         uses: KageKirin/get-csproj-version@v1
         with:
-          file: StreamBitrateSelector.csproj
+          file: ${{ github.workspace }}/StreamBitrateSelector.csproj
 
       - name: Create tag
         run: |
