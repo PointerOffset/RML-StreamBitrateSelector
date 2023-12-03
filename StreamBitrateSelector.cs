@@ -55,23 +55,19 @@ public class StreamBitrateSelector : ResoniteMod
             // Setup a slider with the "Integer" field set to true.
             // Ensures only whole integer values come out of the slider.
             // We can't use Slider<int> as clamping prevents us from sliding to the maximum value.
-            Slider<float> slider = uIBuilder.Slider(64f, 3f, 0, 9, true);
+            Slider<float> slider = uIBuilder.Slider(64f, 0f, 0, 9, true);
             
             // We create a ValueMultiplexer with a list of common audio stream bitrates.
             // The list is derived from OBS-Studio's list of audio stream bitrate options.
             // We'll then use the slider to change the index of the ValueMultiplexer.
             // The selected index will determine which value "BitrateKbps" is being driven to.
             ValueMultiplexer<float> bitrateValueMultiplexer = slider.Slot.AttachComponent<ValueMultiplexer<float>>();
-            bitrateValueMultiplexer.Values.Add(32f);
-            bitrateValueMultiplexer.Values.Add(64f);
-            bitrateValueMultiplexer.Values.Add(96f);
-            bitrateValueMultiplexer.Values.Add(128f);
-            bitrateValueMultiplexer.Values.Add(160f);
-            bitrateValueMultiplexer.Values.Add(192f);
-            bitrateValueMultiplexer.Values.Add(224f);
-            bitrateValueMultiplexer.Values.Add(256f);
-            bitrateValueMultiplexer.Values.Add(288f);
-            bitrateValueMultiplexer.Values.Add(320f);
+
+            for (float kbps = 32f; kbps <= 320f; kbps += 32f)
+            {
+                bitrateValueMultiplexer.Values.Add(kbps);
+            }
+
             bitrateValueMultiplexer.Target.Target = __instance.BitrateKbps;
 
             // ConvertableIntDriver will take our slider's float value and turn it into an int to drive our ValueMultiplexer's Index.
