@@ -64,14 +64,15 @@ jobs:
     needs: build_job
     runs-on: ubuntu-latest
     steps:
-      - name: Configure Git
-        run: |
-          git config user.name "PointerOffset"
-          git config user.email "admin@pointeroffset.dev"
 
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - name: Configure Git
+        run: |
+          git config user.name "PointerOffset"
+          git config user.email "admin@pointeroffset.dev"
+          
       - name: Get Binary
         uses: actions/download-artifact@v3
         with:
