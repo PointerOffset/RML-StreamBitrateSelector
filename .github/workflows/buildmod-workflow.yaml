@@ -1,4 +1,4 @@
-name: RML Build
+name: RML Build Release
 
 on:
   workflow_dispatch:
@@ -59,3 +59,16 @@ jobs:
       with:
         name: StreamBitrateSelector.dll
         path: ./bin/Release/net472/StreamBitrateSelector.dll
+
+  release_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Binary
+        uses: actions/download-artifact@v3
+        with:
+          name: StreamBitrateSelector.dll
+      
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: StreamBitrateSelector.dll
