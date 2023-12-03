@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>11</LangVersion>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <!--This will test for the default Steam installation paths for Resonite on Windows and Linux.-->
