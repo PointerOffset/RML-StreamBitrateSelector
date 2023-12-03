@@ -82,4 +82,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: StreamBitrateSelector.dll
-          tag_name: $LATEST_TAG
+          tag_name: ${{ env.LATEST_TAG }}
