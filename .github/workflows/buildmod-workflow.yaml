@@ -73,14 +73,13 @@ jobs:
         with:
           name: StreamBitrateSelector.dll
 
-      - name: Get Version Number
-        id: get_version
-        uses: KageKirin/get-csproj-version@v1
-        with:
-          file: ${{ github.workspace }}/StreamBitrateSelector.csproj
+      - name: Get the latest tag
+        id: get-latest-tag
+        run: |
+          echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
 
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           files: StreamBitrateSelector.dll
-          tag_name: v${{ steps.get_version.version }}
+          tag_name: $LATEST_TAG
