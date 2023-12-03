@@ -61,6 +61,7 @@ jobs:
         path: ./bin/Release/net472/StreamBitrateSelector.dll
 
   release_job:
+    needs: build_job
     runs-on: ubuntu-latest
     steps:
       - name: Get Binary
