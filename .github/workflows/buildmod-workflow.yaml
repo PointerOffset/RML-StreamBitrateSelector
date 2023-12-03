@@ -87,7 +87,7 @@ jobs:
       - name: Create tag
         run: |
           git tag -m "CI: create new tag" v${{ steps.test.get_version.version }}
-          git push https://${{ github.token }}@github.com/PointerOffset/RML-StreamBitrateSelector
+          git push origin v${{ steps.test.get_version.version }}
 
       - name: Publish Release
         uses: softprops/action-gh-release@v1
