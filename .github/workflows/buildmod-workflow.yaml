@@ -67,7 +67,18 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: StreamBitrateSelector.dll
-      
+
+      - name: Get Version Number
+        id: get_version
+        uses: KageKirin/get-csproj-version@v1
+        with:
+          file: StreamBitrateSelector.csproj
+
+      - name: Create tag
+        run: |
+          git tag -m "CI: create new tag" v${{ steps.test.get_version.version }}
+          git push https://${{ github.token }}@github.com/PointerOffset/RML-StreamBitrateSelector
+
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
