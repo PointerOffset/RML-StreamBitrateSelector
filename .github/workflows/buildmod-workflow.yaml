@@ -68,26 +68,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Configure Git
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
       - name: Get Binary
         uses: actions/download-artifact@v3
         with:
           name: StreamBitrateSelector.dll
-
-      - name: Get Version Number
-        id: get_version
-        uses: KageKirin/get-csproj-version@v1
-        with:
-          file: ${{ github.workspace }}/StreamBitrateSelector.csproj
-
-      - name: Create tag
-        run: |
-          git tag -m "CI: create new tag" v${{ steps.test.get_version.version }}
-          git push origin v${{ steps.test.get_version.version }}
 
       - name: Publish Release
         uses: softprops/action-gh-release@v1
