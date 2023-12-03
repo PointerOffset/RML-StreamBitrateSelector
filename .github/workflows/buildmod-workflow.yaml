@@ -64,6 +64,9 @@ jobs:
     needs: build_job
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        
       - name: Get Binary
         uses: actions/download-artifact@v3
         with:
