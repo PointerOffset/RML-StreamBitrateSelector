@@ -70,9 +70,9 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "PointerOffset"
-          git config user.email "admin@pointeroffset.dev"
-          
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
       - name: Get Binary
         uses: actions/download-artifact@v3
         with:
