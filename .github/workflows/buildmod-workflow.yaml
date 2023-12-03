@@ -65,21 +65,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-
       - name: Get Binary
         uses: actions/download-artifact@v3
         with:
           name: StreamBitrateSelector.dll
 
-      - name: Get the latest tag
-        id: get-latest-tag
-        run: |
-          echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
-
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           files: StreamBitrateSelector.dll
-          tag_name: ${{ env.LATEST_TAG }}
+          tag_name: v1.0.0
